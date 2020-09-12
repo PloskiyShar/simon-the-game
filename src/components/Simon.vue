@@ -96,12 +96,14 @@ export default {
         
     },
     watch: {
-        userSequence: function() {
-            if ((this.userSequence.length <= this.sequence.length) && ((this.sequence.length > 0) && (this.userSequence.length > 0))) {
-                (this.isIdenticalSequences(this.sequence.slice(0, this.userSequence.length), this.userSequence)) ? null : this.resetGame()
-            }
-            if (this.sequence.length === this.userSequence.length) {
-                (this.isIdenticalSequences(this.sequence, this.userSequence) && ((this.sequence.length > 0) && (this.userSequence.length > 0))) ? this.nextRound() : this.resetGame()
+        userSequence: function(newValue, oldValue) {
+            if (newValue == oldValue) {
+                if ((this.userSequence.length < this.sequence.length) && ((this.sequence.length > 0) && (this.userSequence.length > 0))) {
+                    (this.isIdenticalSequences(this.sequence.slice(0, this.userSequence.length), this.userSequence)) ? null : this.resetGame()
+                }
+                if (this.sequence.length === this.userSequence.length) {
+                    (this.isIdenticalSequences(this.sequence, this.userSequence) && ((this.sequence.length > 0) && (this.userSequence.length > 0))) ? this.nextRound() : this.resetGame()
+                }
             }
         }
     },
